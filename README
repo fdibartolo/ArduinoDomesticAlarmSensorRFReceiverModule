@@ -1,0 +1,3 @@
+This is the RF receiver sensor module that is wired to the core module. This runs on a Arduino Nano with ATMega168 microcontroller.
+
+This module will be polling over its own wired sensors, but at the same time, will be listening to any other wireless sensors through a RF receiver. Upon activation of any of those, will inform the core module to trigger.
