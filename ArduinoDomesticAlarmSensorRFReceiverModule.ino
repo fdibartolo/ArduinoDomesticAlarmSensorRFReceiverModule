@@ -3,6 +3,7 @@
 const int pinOutputLed = 13;
 const int pinOutputSensorTriggered = 2;
 const int pinInputSensor1 = 3;
+const int pinInputSensor2 = 4;
 
 const char expectedMessage[5] = {'b','o','o','m'};
 char actualMessage[5];
@@ -11,6 +12,7 @@ void setup() {
   pinMode(pinOutputLed, OUTPUT);     
   pinMode(pinOutputSensorTriggered, OUTPUT);
   pinMode(pinInputSensor1, INPUT);
+  pinMode(pinInputSensor2, INPUT);
 
   vw_setup(2000); //Bits per sec
   vw_rx_start();
@@ -37,13 +39,20 @@ void loop() {
   }
   
   //checking wired sensors
-  if (digitalRead(pinInputSensor1) == HIGH)
+  if (IsWiredSensorTriggered())
     NotifySensorTriggered();
 
 }
 
 boolean IsValidMessage(){
   if ((actualMessage[0] == expectedMessage[0]) && (actualMessage[1] == expectedMessage[1]) && (actualMessage[2] == expectedMessage[2]) && (actualMessage[3] == expectedMessage[3]))
+    return true;
+  else
+    return false;
+}
+
+boolean IsWiredSensorTriggered(){
+  if ((digitalRead(pinInputSensor1) == HIGH) || ((digitalRead(pinInputSensor2) == HIGH)))
     return true;
   else
     return false;
